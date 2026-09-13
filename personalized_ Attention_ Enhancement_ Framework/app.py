@@ -12,7 +12,6 @@ import random
 import os
 import pandas as pd
 from datetime import datetime
- ... PROFILE_METADATA definition ...
 
 # -----------------------------------------------------------------------------
 # PASTE IT HERE (Before the login interface logic)

@@ -12,6 +12,30 @@ import random
 import os
 import pandas as pd
 from datetime import datetime
+ ... PROFILE_METADATA definition ...
+
+# -----------------------------------------------------------------------------
+# PASTE IT HERE (Before the login interface logic)
+# -----------------------------------------------------------------------------
+def get_assigned_profile(participant_id):
+    """
+    Searches for the participant's assigned profile in participant_profiles.csv.
+    Includes a direct fallback for demo recordings.
+    """
+    clean_id = str(participant_id).strip().upper()
+    
+    # Direct bypass for video demo recording
+    if clean_id == "DEMO01":
+        return 1  # Launches Profile 1 (Adaptive Logic Task)
+    
+    profiles_csv = "participant_profiles.csv"
+    if os.path.exists(profiles_csv):
+        df = pd.read_csv(profiles_csv)
+        match = df[df["Participant_ID"].astype(str).str.strip().str.upper() == clean_id]
+        if not match.empty:
+            return int(match.iloc[0]["Profile_Key"])
+            
+    return None
 
 # Import profile metadata from profile_classifier.py
 try:
